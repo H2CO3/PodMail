@@ -10,39 +10,41 @@
 
 #import "PMDonate.h"
 
-static id shared = NULL;
-
+static id shared = nil;
 
 @implementation PMDonate
 
-+ (id) sharedInstance {
-	if (shared == NULL) {
++ (id)sharedInstance
+{
+	if (shared == nil) {
 		shared = [[self alloc] init];
 	}
 	return shared;
 }
 
-- (void) showDonateAlertIfNeccessary {
-	if ([[NSUserDefaults standardUserDefaults] boolForKey:@"PMDonateShown"] == NO) {
+- (void)showDonateAlertIfNeccessary
+{
+	if ([[NSUserDefaults standardUserDefaults] boolForKey:@"PMDonateShown2"] == NO) {
 		UIAlertView *av = [[UIAlertView alloc] init];
 		av.delegate = self;
 		av.title = @"Please donate";
-		av.message = @"If this tweak worked for you and you like it, I would greatly appreciate a donation.";
+		av.message = @"If this tweak worked for you and you like it, I would greatly appreciate a donation. By donating, you support the development of my apps and tweaks. Thank you!";
 		[av addButtonWithTitle:@"Donate"];
 		[av addButtonWithTitle:@"Later"];
 		[av show];
 		[av release];
-		[[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"PMDonateShown"];
+		[[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"PMDonateShown2"];
 		[[NSUserDefaults standardUserDefaults] synchronize];
 	}
 }
 
 // UIAlertViewDelegate
 
-- (void) alertView:(UIAlertView *)av didDismissWithButtonIndex:(int)index {
+- (void)alertView:(UIAlertView *)av didDismissWithButtonIndex:(int)index
+{
 	if (index == 0) {
 		// User hit Donate
-		[[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"http://apaczai.elte.hu/~13akga/donate/index.html"]];
+		[[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=8Y95UZYUHTM22"]];
 	}
 }
 

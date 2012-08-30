@@ -10,23 +10,27 @@ CFLAGS = -isysroot /User/sysroot \
 	 -Wall \
 	 -std=gnu99 \
 	 -DTARGET_OS_IPHONE=1 \
+	 -g \
+	 -O0 \
 	 -c
 LDFLAGS = -isysroot /User/sysroot \
 	  -w \
 	  -dynamiclib \
 	  -lobjc \
 	  -lsubstrate \
+	  -lFLAC \
 	  -framework CoreFoundation \
+	  -framework CoreMedia \
 	  -framework MobileCoreServices \
 	  -framework Foundation \
 	  -framework UIKit \
 	  -framework MessageUI \
-	  -framework MFMusicLibrary
+	  -framework MediaPlayer \
+	  -framework AVFoundation
 
 OBJECTS = PodMail.o \
 	  PMViewController.o \
-	  PMDonate.o \
-	  NSString+PodMail.o
+	  PMDonate.o
 
 all: $(TARGET)
 

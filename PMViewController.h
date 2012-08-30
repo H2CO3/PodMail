@@ -11,10 +11,11 @@
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 #import <MessageUI/MessageUI.h>
-#import <MFMusicLibrary/MFMusicLibrary.h>
+#import <MediaPlayer/MediaPlayer.h>
 
 
-@interface PMViewController: UITableViewController <MFMailComposeViewControllerDelegate> {	
+@interface PMViewController: UITableViewController <MFMailComposeViewControllerDelegate> {
+	NSArray *songs;
 }
 
 @end
