@@ -24,7 +24,7 @@ static id shared = nil;
 
 - (void)showDonateAlertIfNeccessary
 {
-	if ([[NSUserDefaults standardUserDefaults] boolForKey:@"PMDonateShown2"] == NO) {
+	if ([[NSUserDefaults standardUserDefaults] boolForKey:@"PMDonateShown3"] == NO) {
 		UIAlertView *av = [[UIAlertView alloc] init];
 		av.delegate = self;
 		av.title = @"Please donate";
@@ -33,8 +33,6 @@ static id shared = nil;
 		[av addButtonWithTitle:@"Later"];
 		[av show];
 		[av release];
-		[[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"PMDonateShown2"];
-		[[NSUserDefaults standardUserDefaults] synchronize];
 	}
 }
 
@@ -45,6 +43,8 @@ static id shared = nil;
 	if (index == 0) {
 		// User hit Donate
 		[[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=8Y95UZYUHTM22"]];
+		[[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"PMDonateShown3"];
+		[[NSUserDefaults standardUserDefaults] synchronize];
 	}
 }
 

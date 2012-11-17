@@ -18,7 +18,7 @@
 #import <UIKit/UIKit.h>
 #import "PMViewController.h"
 
-static IMP _orig1, _orig2;
+static IMP _orig1, _orig2, _orig3;
 UIViewController *gridController = nil;
 
 id _mod1(id __self, SEL __cmd, CGRect f)
@@ -48,6 +48,19 @@ id _mod2(id __self, SEL __cmd, id _1, id _2)
 	return __self;
 }
 
+void _mod3(id __self, SEL __cmd, NSArray *ctrls)
+{
+	NSMutableArray *arr = [[ctrls mutableCopy] autorelease];
+	if (!arr) arr = [NSMutableArray array];
+	
+	PMViewController *vc = [[PMViewController alloc] init];
+	UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:vc];
+	[vc release];
+	[arr addObject:nav];
+	[nav release];
+	_orig3(__self, __cmd, arr);
+}
+
 void showPodMail(id __self, SEL __cmd)
 {
 	PMViewController *rootViewController = [[PMViewController alloc] init];
@@ -59,25 +72,34 @@ void showPodMail(id __self, SEL __cmd)
 
 __attribute__((constructor))
 extern void init() {
-	class_addMethod(
-		objc_getClass("MusicGridViewController"),
-		@selector(showPodMail),
-		(IMP)showPodMail,
-		"v@:"
-	);
-
-	MSHookMessageEx(
-		objc_getClass("MusicHeaderView"),
-		@selector(initWithFrame:),
-		(IMP)_mod1,
-		&_orig1
-	);
-
-	MSHookMessageEx(
-		objc_getClass("MusicGridViewController"),
-		@selector(initWithDataSource:gridConfigurationClass:),
-		(IMP)_mod2,
-		&_orig2
-	);
+	
+	if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad) {
+		class_addMethod(
+			objc_getClass("MusicGridViewController"),
+			@selector(showPodMail),
+			(IMP)showPodMail,
+			"v@:"
+		);
+	
+		MSHookMessageEx(
+			objc_getClass("MusicHeaderView"),
+			@selector(initWithFrame:),
+			(IMP)_mod1,
+			&_orig1
+		);
+	
+		MSHookMessageEx(
+			objc_getClass("MusicGridViewController"),
+			@selector(initWithDataSource:gridConfigurationClass:),
+			(IMP)_mod2,
+			&_orig2
+		);
+	} else {
+		MSHookMessageEx(
+			objc_getClass("UITabBarController"),
+			@selector(setViewControllers:),
+			(IMP)_mod3,
+			&_orig3
+		);
+	}
 }
-

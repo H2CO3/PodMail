@@ -51,7 +51,13 @@ FLAC__StreamEncoderWriteStatus FLAC_writeCallback(const FLAC__StreamEncoder *enc
 {
 	if ((self = [super initWithStyle:UITableViewStylePlain])) {
 		self.title = @"Mail songs";
-		self.navigationItem.rightBarButtonItem = [[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(close)] autorelease];
+		if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad) {
+			self.navigationItem.rightBarButtonItem = [[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(close)] autorelease];
+		} else {
+			UIImage *img = [[UIImage alloc] initWithContentsOfFile:@"/var/mobile/Library/PodMail/PodMail.png"];
+			self.tabBarItem = [[[UITabBarItem alloc] initWithTitle:nil image:img tag:'podm'] autorelease];
+			[img release];
+		}
 		MPMediaQuery *query = [[MPMediaQuery alloc] init];
 		songs = [query.items copy];
 		[query release];

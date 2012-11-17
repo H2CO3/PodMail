@@ -1,0 +1,10 @@
+Package: org.h2co3.podmail
+Name: PodMail
+Version: 0.3
+Section: Multimedia
+Depends: mobilesubstrate, flac, firmware (>= 5.0)
+Architecture: iphoneos-arm
+Depiction: http://twitter.com/H2CO3_iOS
+Description: PodMail is a tweak that enables you to email media files directly from the iPod/Music app. Now supports iPhone and iPad on iOS 5!
+Author: Arpad Goretity (H2CO3)
+Maintainer: Arpad Goretity (H2CO3)

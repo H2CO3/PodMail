@@ -1,1 +1,5 @@
 PodMail is an iOS tweak for emailing songs from your iPod library on the go. Version 0.1 supports iOS 4, version 0.2 supports iPad on iOS 5.
+Version 0.3 supports iOS 5 on **both** iPhone and iPad.
+
+Requires libflac to be built.
+
